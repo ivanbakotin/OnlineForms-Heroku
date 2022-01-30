@@ -11,6 +11,8 @@ const PORT = process.env.PORT || 8080;
 
 const pgSession = require('connect-pg-simple')(session)
 
+pool.connect();
+
 const authCheck = (req, res, next) => {
     if (req.user) next();
 };
@@ -42,22 +44,10 @@ app.use("/api", authCheck, all_routes);
 
 http.listen(PORT, () => console.log(`Server started on ${PORT}`));
 
-//app.use(express.static(path.join(__dirname, "build")));
-//
-//app.get( `*`, (req, res, next) => {
-//  res.sendFile(path.join(__dirname, "build", "index.html"));
-//});
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get( `*`, (req, res, next) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 module.exports = app;
-
-/*
-    info page
-    response page
-    pagination on all forms page
-    skeleton loading
-    form validation errors
-    make anonyomous fillout optional
-    add saving portal popup while settimeout active
-    required useless currently
-    delete indvid response
-*/
