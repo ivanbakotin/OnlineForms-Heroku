@@ -9,8 +9,6 @@ const all_routes = require("./routes/all_routes.js");
 const pool = require("./db.js");
 const PORT = process.env.PORT || 8080;
 
-pool.connect()
-
 const pgSession = require('connect-pg-simple')(session)
 
 const authCheck = (req, res, next) => {
@@ -42,12 +40,24 @@ app.use(passport.session());
 app.use("/auth", auth_routes);
 app.use("/api", authCheck, all_routes);
 
-app.use(express.static(path.join(__dirname, "build")));
-
-app.get( `*`, (req, res, next) => {
-    res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
 http.listen(PORT, () => console.log(`Server started on ${PORT}`));
 
+//app.use(express.static(path.join(__dirname, "build")));
+//
+//app.get( `*`, (req, res, next) => {
+//  res.sendFile(path.join(__dirname, "build", "index.html"));
+//});
+
 module.exports = app;
+
+/*
+    info page
+    response page
+    pagination on all forms page
+    skeleton loading
+    form validation errors
+    make anonyomous fillout optional
+    add saving portal popup while settimeout active
+    required useless currently
+    delete indvid response
+*/
