@@ -94,17 +94,16 @@ exports.update_form_questions = function (req, res, next) {
   req.body.questions.forEach((quest) => {
     pool.query(
       `INSERT INTO questions
-       (form_id, question_id, quest_title, question_type, required, position) 
-       VALUES ($1, $2, $3, $4, $5, $6) 
+       (form_id, question_id, quest_title, question_type, required) 
+       VALUES ($1, $2, $3, $4, $5) 
        ON CONFLICT (form_id, question_id) 
-       DO UPDATE SET position=$6, quest_title=$3, question_type=$4, required=$5`,
+       DO UPDATE SET quest_title=$3, question_type=$4, required=$5`,
       [
         quest.form_id,
         quest.question_id,
         quest.quest_title,
         quest.question_type,
         quest.required,
-        quest.position,
       ]
     );
 
